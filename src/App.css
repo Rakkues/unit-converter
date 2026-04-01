@@ -1,0 +1,14 @@
+.convertForm {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.convertForm label {
+    margin-top: 10px;
+}
+
+.submitBtn {
+    margin-top: 10px;
+}
