@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 
 const lengthUnits = ["centimenter", "inch", "meter"];
 
@@ -11,11 +12,47 @@ function App() {
   );
 }
 
-function UnitCoverter(props) {
+function UnitCoverter({ unitType }) {
+  const [inputValue, setInputValue] = useState("");
+  const [result, setResult] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      value: 50,
+      type: "length",
+    };
+
+    try {
+      console.log(JSON.stringify(data));
+      const response = await fetch("http://localhost:3000/convert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const json = await response.json();
+      console.log(`Input value: ${json.value}`);
+      console.log(`Type value: ${json.type}`);
+    } catch (error) {
+      console.error("Conversion failed: ", error);
+    }
+  };
+
   return (
-    <form id={`${props.unitType}ConvertForm`} className="convertForm">
-      <label for={`from${props.unitType}`}>Enter the length to convert</label>
-      <input type="text" id="fromLength" required />
+    <form
+      id={`${unitType}ConvertForm`}
+      className="convertForm"
+      onSubmit={handleSubmit}
+    >
+      <label for={`from${unitType}`}>Enter the length to convert</label>
+      <input
+        type="number"
+        id="fromLength"
+        required
+        onChange={(e) => setInputValue(e.target.value)}
+      />
       <label for="fromUnit">Unit to convert from</label>
       <select name="fromUnit" id="fromUnit" required>
         {lengthUnits.map((length) => {
