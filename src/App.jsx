@@ -13,15 +13,18 @@ function App() {
 }
 
 function UnitCoverter({ unitType }) {
-  const [inputValue, setInputValue] = useState("");
-  const [result, setResult] = useState(null);
+  const [inputValue, setInputValue] = useState(0);
+  const [fromUnit, setFromUnit] = useState("");
+  const [toUnit, setToUnit] = useState("");
+  const [result, setResult] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
-      value: 50,
-      type: "length",
+      inputValue: inputValue,
+      fromUnit: fromUnit,
+      toUnit: toUnit,
     };
 
     try {
@@ -33,8 +36,7 @@ function UnitCoverter({ unitType }) {
       });
 
       const json = await response.json();
-      console.log(`Input value: ${json.value}`);
-      console.log(`Type value: ${json.type}`);
+      console.log(`Conversion result: ${json.result}`);
     } catch (error) {
       console.error("Conversion failed: ", error);
     }
@@ -54,13 +56,23 @@ function UnitCoverter({ unitType }) {
         onChange={(e) => setInputValue(e.target.value)}
       />
       <label for="fromUnit">Unit to convert from</label>
-      <select name="fromUnit" id="fromUnit" required>
+      <select
+        name="fromUnit"
+        id="fromUnit"
+        required
+        onChange={(e) => setFromUnit(e.target.value)}
+      >
         {lengthUnits.map((length) => {
           return <option value={length}>{length}</option>;
         })}
       </select>
       <label for="toUnit">Unit to convert to</label>
-      <select name="toUnit" id="toUnit" required>
+      <select
+        name="toUnit"
+        id="toUnit"
+        required
+        onChange={(e) => setToUnit(e.target.value)}
+      >
         {lengthUnits.map((length) => {
           return <option value={length}>{length}</option>;
         })}

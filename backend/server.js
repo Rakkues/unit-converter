@@ -7,9 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/convert", (request, response) => {
+  const data = request.body;
+  const result = converter.convert(data.inputValue, data.fromUnit, data.toUnit);
+
   response.json({
-    value: request.body.value,
-    type: request.body.type,
+    result: result,
   });
 });
 
