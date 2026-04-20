@@ -1,22 +1,44 @@
 import "./App.css";
 import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-const lengthUnits = ["centimenter", "inch", "meter"];
+const lengthUnits = ["centimeter", "inch", "meter"];
+const weightUnits = ["gram", "kilogram"];
+const temperatureUnits = ["celcius", "fahrenheit", "kelvin"];
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <h1>Unit Converter</h1>
-      <UnitCoverter unitType="length" />
-    </>
+      <nav>
+        <Link to="/">Length</Link> | <Link to="/weight">Weight</Link> |{" "}
+        <Link to="/temperature">Temperature</Link>
+      </nav>
+      <Routes>
+        <Route
+          path="/"
+          element={<UnitConverter unitType={"length"} units={lengthUnits} />}
+        />
+        <Route
+          path="/weight"
+          element={<UnitConverter unitType={"weight"} units={weightUnits} />}
+        />
+        <Route
+          path="/temperature"
+          element={
+            <UnitConverter unitType={"temperature"} units={temperatureUnits} />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-function UnitCoverter({ unitType }) {
+function UnitConverter({ unitType, units }) {
   const [inputValue, setInputValue] = useState(0);
-  const [fromUnit, setFromUnit] = useState("");
-  const [toUnit, setToUnit] = useState("");
+  const [fromUnit, setFromUnit] = useState(units[0]);
   const [result, setResult] = useState(0);
+  const [toUnit, setToUnit] = useState(units[0]);
   const [visibility, setVisibility] = useState(true);
 
   const handleSubmit = async (event) => {
@@ -53,10 +75,12 @@ function UnitCoverter({ unitType }) {
           className="convertForm"
           onSubmit={handleSubmit}
         >
-          <label for={`from${unitType}`}>Enter the length to convert</label>
+          <label for={`from${unitType}`}>
+            Enter the {`${unitType}`} to convert
+          </label>
           <input
             type="number"
-            id="fromLength"
+            id={`from${unitType}`}
             required
             onChange={(e) => setInputValue(e.target.value)}
           />
@@ -67,7 +91,7 @@ function UnitCoverter({ unitType }) {
             required
             onChange={(e) => setFromUnit(e.target.value)}
           >
-            {lengthUnits.map((length) => {
+            {units.map((length) => {
               return <option value={length}>{length}</option>;
             })}
           </select>
@@ -78,7 +102,7 @@ function UnitCoverter({ unitType }) {
             required
             onChange={(e) => setToUnit(e.target.value)}
           >
-            {lengthUnits.map((length) => {
+            {units.map((length) => {
               return <option value={length}>{length}</option>;
             })}
           </select>
@@ -88,8 +112,10 @@ function UnitCoverter({ unitType }) {
       <ConversionResult
         fromValue={inputValue}
         fromUnit={fromUnit}
+        setFromUnit={setFromUnit}
         toValue={result}
         toUnit={toUnit}
+        setToUnit={setToUnit}
         visibility={visibility}
         setVisibility={setVisibility}
       />
@@ -101,9 +127,13 @@ function ConversionResult({
   visibility,
   setVisibility,
   fromValue,
+  setInputValue,
   fromUnit,
+  setFromUnit,
   toValue,
   toUnit,
+  setToUnit,
+  units,
 }) {
   return (
     !visibility && (
@@ -113,6 +143,8 @@ function ConversionResult({
         <button
           onClick={() => {
             setVisibility(!visibility);
+            setFromUnit(units[0]);
+            setToUnit(units[0]);
           }}
         >
           Reset
