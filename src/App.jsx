@@ -2,7 +2,18 @@ import "./App.css";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-const lengthUnits = ["centimeter", "inch", "meter"];
+const lengthUnits = [
+  "kilometer",
+  "meter",
+  "centimeter",
+  "millimeter",
+  "micrometer",
+  "nanometer",
+  "mile",
+  "yard",
+  "foot",
+  "inch",
+];
 const weightUnits = ["gram", "kilogram"];
 const temperatureUnits = ["celcius", "fahrenheit", "kelvin"];
 
@@ -118,6 +129,7 @@ function UnitConverter({ unitType, units }) {
         setToUnit={setToUnit}
         visibility={visibility}
         setVisibility={setVisibility}
+        units={units}
       />
     </>
   );
@@ -137,7 +149,7 @@ function ConversionResult({
 }) {
   return (
     !visibility && (
-      <div class="conversionResult">
+      <div className="conversionResult">
         <h1>Result of your calculation</h1>
         <p>{`${fromValue} ${fromUnit} = ${toValue} ${toUnit}`}</p>
         <button
