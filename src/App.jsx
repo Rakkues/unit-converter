@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 const lengthUnits = [
   "kilometer",
@@ -31,10 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       <h1>Unit Converter</h1>
-      <nav>
-        <Link to="/">Length</Link> | <Link to="/weight">Weight</Link> |{" "}
-        <Link to="/temperature">Temperature</Link>
-      </nav>
+      <NavBar />
       <Routes>
         <Route
           path="/"
@@ -52,6 +49,45 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
+  );
+}
+
+function NavBar() {
+  return (
+    <nav>
+      <ul className="navBar">
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) => {
+              return isActive ? "navLink active" : "navLink";
+            }}
+          >
+            Length
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/weight"
+            className={({ isActive }) => {
+              return isActive ? "navLink active" : "navLink";
+            }}
+          >
+            Weight
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/temperature"
+            className={({ isActive }) => {
+              return isActive ? "navLink active" : "navLink";
+            }}
+          >
+            Temperature
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
