@@ -199,8 +199,9 @@ function ConversionResult({
     !visibility && (
       <div className="conversionResult">
         <h1>Result of your calculation</h1>
-        <p>{`${fromValue} ${fromUnit} = ${toValue} ${toUnit}`}</p>
+        <p>{`${fromValue} ${fromUnit} = ${Number(toValue.toFixed(4))} ${toUnit}`}</p>
         <button
+          className="resetBtn"
           onClick={() => {
             handleReset();
           }}
