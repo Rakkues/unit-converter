@@ -79,6 +79,13 @@ function UnitConverter({ unitType, units }) {
     }
   };
 
+  const handleReset = () => {
+    setInputValue(0);
+    setFromUnit(units[0]);
+    setToUnit(units[0]);
+    setVisibility(true);
+  };
+
   return (
     <>
       {visibility && (
@@ -124,13 +131,11 @@ function UnitConverter({ unitType, units }) {
       <ConversionResult
         fromValue={inputValue}
         fromUnit={fromUnit}
-        setFromUnit={setFromUnit}
         toValue={result}
         toUnit={toUnit}
-        setToUnit={setToUnit}
         visibility={visibility}
-        setVisibility={setVisibility}
         units={units}
+        handleReset={handleReset}
       />
     </>
   );
@@ -138,15 +143,11 @@ function UnitConverter({ unitType, units }) {
 
 function ConversionResult({
   visibility,
-  setVisibility,
   fromValue,
-  setInputValue,
   fromUnit,
-  setFromUnit,
   toValue,
   toUnit,
-  setToUnit,
-  units,
+  handleReset,
 }) {
   return (
     !visibility && (
@@ -155,10 +156,7 @@ function ConversionResult({
         <p>{`${fromValue} ${fromUnit} = ${toValue} ${toUnit}`}</p>
         <button
           onClick={() => {
-            setVisibility(!visibility);
-            setInputValue(0);
-            setFromUnit(units[0]);
-            setToUnit(units[0]);
+            handleReset();
           }}
         >
           Reset
