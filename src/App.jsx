@@ -59,6 +59,7 @@ function UnitConverter({ unitType, units }) {
       inputValue: inputValue,
       fromUnit: fromUnit,
       toUnit: toUnit,
+      unitType: unitType,
     };
 
     try {
@@ -155,6 +156,7 @@ function ConversionResult({
         <button
           onClick={() => {
             setVisibility(!visibility);
+            setInputValue(0);
             setFromUnit(units[0]);
             setToUnit(units[0]);
           }}

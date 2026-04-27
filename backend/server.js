@@ -8,7 +8,35 @@ app.use(express.json());
 
 app.post("/convert", (request, response) => {
   const data = request.body;
-  const result = converter.convert(data.inputValue, data.fromUnit, data.toUnit);
+  console.log(data);
+  let result;
+
+  switch (data.unitType) {
+    case "length":
+      console.log("Converting length");
+      result = converter.convertLength(
+        data.inputValue,
+        data.fromUnit,
+        data.toUnit,
+      );
+      break;
+    case "weight":
+      console.log("Converting weight");
+      result = converter.convertWeight(
+        data.inputValue,
+        data.fromUnit,
+        data.toUnit,
+      );
+      break;
+    case "temperature":
+      console.log("Converting temperature");
+      result = converter.convertTemperature(
+        data.inputValue,
+        data.fromUnit,
+        data.toUnit,
+      );
+      break;
+  }
 
   response.json({
     result: result,
