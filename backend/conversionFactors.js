@@ -1,4 +1,4 @@
-const meterConversionFactors = {
+const lengthConversionFactors = {
   kilometer: 1e-3,
   meter: 1,
   centimeter: 1e2,
@@ -11,4 +11,6 @@ const meterConversionFactors = {
   inch: 39.37,
 };
 
-module.exports = { meterConversionFactors };
+const weightConversionFactors = {};
+
+module.exports = { lengthConversionFactors, weightConversionFactors };
