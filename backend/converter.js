@@ -26,30 +26,32 @@ function convertWeight(value, fromUnit, toUnit) {
 }
 
 function convertTemperature(value, fromUnit, toUnit) {
+  let numValue = Number(value);
+
   switch (fromUnit) {
     case "celcius":
       if (toUnit === "kelvin") {
-        return value + 273.15;
+        return numValue + 273.15;
       } else if (toUnit === "fahrenheit") {
-        return value * (9 / 5) + 32;
+        return numValue * (9 / 5) + 32;
       } else {
-        return value;
+        return numValue;
       }
     case "fahrenheit":
       if (toUnit === "celcius") {
-        return (value - 32) * (5 / 9);
+        return (numValue - 32) * (5 / 9);
       } else if (toUnit === "fahrenheit") {
-        return (value - 32) * (5 / 9) + 273.15;
+        return (numValue - 32) * (5 / 9) + 273.15;
       } else {
-        return value;
+        return numValue;
       }
     case "kelvin":
       if (toUnit === "celcius") {
-        return value - 273.15;
+        return numValue - 273.15;
       } else if (toUnit === "fahrenheit") {
-        return (value - 273.15) * (9 / 5) + 32;
+        return (numValue - 273.15) * (9 / 5) + 32;
       } else {
-        return value;
+        return numValue;
       }
   }
 }

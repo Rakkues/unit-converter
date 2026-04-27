@@ -11,6 +11,16 @@ const lengthConversionFactors = {
   inch: 39.37,
 };
 
-const weightConversionFactors = {};
+const weightConversionFactors = {
+  tonne: 1e-6,
+  kilogram: 1e-3,
+  gram: 1,
+  milligram: 1e3,
+  microgram: 1e6,
+  "imperial ton": 1.016e6 ** -1,
+  "us ton": 907200 ** -1,
+  pound: 453.6 ** -1,
+  ounce: 28.35 ** -1,
+};
 
 module.exports = { lengthConversionFactors, weightConversionFactors };

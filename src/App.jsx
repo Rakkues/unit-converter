@@ -14,7 +14,17 @@ const lengthUnits = [
   "foot",
   "inch",
 ];
-const weightUnits = ["gram", "kilogram"];
+const weightUnits = [
+  "tonne",
+  "kilogram",
+  "gram",
+  "milligram",
+  "microgram",
+  "imperial ton",
+  "us ton",
+  "pound",
+  "ounce",
+];
 const temperatureUnits = ["celcius", "fahrenheit", "kelvin"];
 
 function App() {
