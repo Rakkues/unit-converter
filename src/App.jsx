@@ -35,16 +35,28 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<UnitConverter unitType={"length"} units={lengthUnits} />}
+          element={
+            <UnitConverter
+              key={"length"}
+              unitType="length"
+              units={lengthUnits}
+            />
+          }
         />
         <Route
           path="/weight"
-          element={<UnitConverter unitType={"weight"} units={weightUnits} />}
+          element={
+            <UnitConverter key="weight" unitType="weight" units={weightUnits} />
+          }
         />
         <Route
           path="/temperature"
           element={
-            <UnitConverter unitType={"temperature"} units={temperatureUnits} />
+            <UnitConverter
+              key="temperature"
+              unitType="temperature"
+              units={temperatureUnits}
+            />
           }
         />
       </Routes>
@@ -118,7 +130,7 @@ function UnitConverter({ unitType, units }) {
 
       const json = await response.json();
       setVisibility(!visibility);
-      setResult(json.result);
+      setResult(Number(json.result));
       console.log(`Conversion result: ${json.result}`);
     } catch (error) {
       console.error("Conversion failed: ", error);
@@ -129,6 +141,7 @@ function UnitConverter({ unitType, units }) {
     setInputValue(0);
     setFromUnit(units[0]);
     setToUnit(units[0]);
+    setResult(0);
     setVisibility(true);
   };
 
@@ -199,7 +212,7 @@ function ConversionResult({
     !visibility && (
       <div className="conversionResult">
         <h1>Result of your calculation</h1>
-        <p>{`${fromValue} ${fromUnit} = ${Number(toValue.toFixed(4))} ${toUnit}`}</p>
+        <p>{`${fromValue} ${fromUnit} = ${toValue.toFixed(4)} ${toUnit}`}</p>
         <button
           className="resetBtn"
           onClick={() => {
